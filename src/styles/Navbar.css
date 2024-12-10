@@ -1,0 +1,40 @@
+/* Estilos principais para o nav */
+nav {
+    position: fixed; /* Fixa a barra no topo */
+    top: 0; /* Fixa no topo da tela */
+    left: 0; /* Alinha à esquerda */
+    width: 100%; /* Ocupa toda a largura da tela */
+    background-color: #333; /* Cor de fundo escura */
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Garante que o nav fique acima de outros elementos */
+  }
+  
+  ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center; /* Centraliza os itens na barra */
+    padding: 0;
+    margin: 0;
+  }
+  
+  li {
+    margin: 0 15px; /* Espaçamento entre os itens */
+  }
+  
+  a {
+    color: white;
+    text-decoration: none; /* Remove o sublinhado */
+    font-size: 16px;
+    transition: color 0.3s ease, transform 0.3s ease; /* Transição suave para cor e transformação */
+  }
+  
+  a:hover {
+    color: #ff8c00; /* Cor de destaque ao passar o mouse */
+    transform: scale(1.1); /* Leve aumento do tamanho */
+  }
+  
+  a:active {
+    color: #e07b00; /* Cor quando o link é clicado */
+  }
+  
