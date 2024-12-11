@@ -1,124 +1,152 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect } from "react";
-import Navbar from "./Navbar";
+import React, { useState, useEffect } from 'react';
+import Navbar from './Navbar';
+import '../styles/Calculadora.css';
 
-export function Calculadora() {
-  const [display, setDisplay] = useState("");
-  const [previousValue, setPreviousValue] = useState("");
-  const [operator, setOperator] = useState("");
+export default function Calculator() {
+  const [display, setDisplay] = useState('0');
+  const [firstNumber, setFirstNumber] = useState(null);
+  const [operation, setOperation] = useState(null);
+  const [newNumber, setNewNumber] = useState(true);
 
-  const handleClick = (value) => {
-    if (/^\d|\.$/.test(value)) {
-      setDisplay((prev) => prev + value);
-    } else if (value === "CE") {
-      setDisplay("");
-      setPreviousValue("");
-      setOperator("");
-    } else if ("+-×÷%".includes(value)) {
-      if (display !== "") {
-        if (previousValue !== "") {
-          calculate();
-        }
-        setPreviousValue(display);
-        setDisplay("");
-        setOperator(value);
-      }
-    } else if (value === "=") {
-      calculate();
+  const calculate = (a, b, op) => {
+    a = parseFloat(a);
+    b = parseFloat(b);
+    switch (op) {
+      case '+': return a + b;
+      case '-': return a - b;
+      case 'x': return a * b;
+      case '÷': return a / b;
+      default: return b;
     }
   };
 
-  const calculate = () => {
-    if (previousValue !== "" && display !== "") {
-      const prev = parseFloat(previousValue);
-      const curr = parseFloat(display);
-      let result = 0;
-
-      switch (operator) {
-        case "+":
-          result = prev + curr;
-          break;
-        case "-":
-          result = prev - curr;
-          break;
-        case "×":
-          result = prev * curr;
-          break;
-        case "÷":
-          result = curr !== 0 ? prev / curr : "Erro";
-          break;
-        case "%":
-          result = prev % curr;
-          break;
-        default:
-          return;
-      }
-
-      setDisplay(result.toString());
-      setPreviousValue("");
-      setOperator("");
+  const handleNumber = (num) => {
+    if (newNumber) {
+      setDisplay(num);
+      setNewNumber(false);
+    } else {
+      setDisplay(display === '0' ? num : display + num);
     }
   };
 
-  const handleKeyPress = (event) => {
-    const key = event.key;
-    if (/^\d$|\.|\+|\-|\*|\//.test(key)) {
-      handleClick(key === "*" ? "×" : key === "/" ? "÷" : key);
-    } else if (key === "Enter") {
-      handleClick("=");
-    } else if (key === "Escape") {
-      handleClick("CE");
+  const handleOperation = (op) => {
+    const current = parseFloat(display);
+    if (firstNumber === null) {
+      setFirstNumber(current);
+    } else if (operation) {
+      const result = calculate(firstNumber, current, operation);
+      setFirstNumber(result);
+      setDisplay(String(result));
+    }
+    setNewNumber(true);
+    setOperation(op);
+  };
+
+  const handleEqual = () => {
+    const current = parseFloat(display);
+    if (operation && firstNumber !== null) {
+      const result = calculate(firstNumber, current, operation);
+      setDisplay(String(result));
+      setFirstNumber(null);
+      setOperation(null);
+      setNewNumber(true);
+    }
+  };
+
+  const handleClear = () => {
+    setDisplay('0');
+    setFirstNumber(null);
+    setOperation(null);
+    setNewNumber(true);
+  };
+
+  const handleBackspace = () => {
+    setDisplay(display.slice(0, -1) || '0');
+  };
+
+  const handleKeyDown = (event) => {
+    const { key } = event;
+    if (!isNaN(key)) {
+      handleNumber(key);
+    } else if (key === '+') {
+      handleOperation('+');
+    } else if (key === '-') {
+      handleOperation('-');
+    } else if (key === '*') {
+      handleOperation('x');
+    } else if (key === '/') {
+      handleOperation('÷');
+    } else if (key === 'Enter' || key === '=') {
+      handleEqual();
+    } else if (key === 'Backspace') {
+      handleBackspace();
+    } else if (key === 'Escape') {
+      handleClear();
+    } else if (key === '.') {
+      handleNumber('.');
     }
   };
 
   useEffect(() => {
-    window.addEventListener("keydown", handleKeyPress);
+    window.addEventListener('keydown', handleKeyDown);
     return () => {
-      window.removeEventListener("keydown", handleKeyPress);
+      window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [display, previousValue, operator]);
+  }, [display, firstNumber, operation, newNumber]);
+
+  const createButton = (label, onClick, className = '') => (
+    <button
+      onClick={() => onClick(label)}
+      className={`calculator-button ${className}`}
+    >
+      {label}
+    </button>
+  );
 
   return (
-    <div className="navbar">
+    <div className="calculator-container">
+      {/* Navbar */}
       <Navbar />
-    <div style={{ maxWidth: "300px", margin: "0 auto", padding: "16px", background: "#333", borderRadius: "8px", color: "#fff", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)" }}>
-      <input
-        type="text"
-        value={display}
-        readOnly
-        style={{
-          width: "100%",
-          padding: "10px",
-          fontSize: "18px",
-          textAlign: "right",
-          marginBottom: "16px",
-          background: "#222",
-          border: "1px solid #444",
-          borderRadius: "4px",
-          color: "#fff"
-        }}
-      />
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "8px" }}>
-        <button onClick={() => handleClick("CE")} style={{ gridColumn: "span 2", background: "#e74c3c", color: "#fff", padding: "10px", borderRadius: "4px" }}>CE</button>
-        <button onClick={() => handleClick("%")} style={{ background: "#555", color: "#fff", padding: "10px", borderRadius: "4px" }}>%</button>
-        <button onClick={() => handleClick("÷")} style={{ background: "#555", color: "#fff", padding: "10px", borderRadius: "4px" }}>÷</button>
-        {["7", "8", "9", "×", "4", "5", "6", "-", "1", "2", "3", "+", "0", ".", "="].map((btn) => (
-          <button
-            key={btn}
-            onClick={() => handleClick(btn)}
-            style={{
-              padding: "10px",
-              borderRadius: "4px",
-              color: "#fff",
-              background: btn === "=" ? "#007bff" : "+-×÷".includes(btn) ? "#555" : "#444"
-            }}
-          >
-            {btn}
-          </button>
-        ))}
+
+      {/* Calculator */}
+      <div className="calculator">
+        {/* Title */}
+
+        {/* Display */}
+        <div className="calculator-display">
+          {display}
+        </div>
+
+        {/* Buttons container */}
+        <div className="calculator-buttons">
+          {createButton('C', handleClear, 'clear-button')}
+          {createButton('⌫', handleBackspace, 'backspace-button')}
+          {createButton('%', () => handleOperation('%'), 'operator-button')}
+          {createButton('÷', () => handleOperation('÷'), 'operator-button')}
+
+          {createButton('7', () => handleNumber('7'), 'number-button')}
+          {createButton('8', () => handleNumber('8'), 'number-button')}
+          {createButton('9', () => handleNumber('9'), 'number-button')}
+          {createButton('x', () => handleOperation('x'), 'operator-button')}
+
+          {createButton('4', () => handleNumber('4'), 'number-button')}
+          {createButton('5', () => handleNumber('5'), 'number-button')}
+          {createButton('6', () => handleNumber('6'), 'number-button')}
+          {createButton('-', () => handleOperation('-'), 'operator-button')}
+
+          {createButton('1', () => handleNumber('1'), 'number-button')}
+          {createButton('2', () => handleNumber('2'), 'number-button')}
+          {createButton('3', () => handleNumber('3'), 'number-button')}
+          {createButton('+', () => handleOperation('+'), 'operator-button')}
+
+          {createButton('±', () => setDisplay(String(-parseFloat(display))), 'number-button')}
+          {createButton('0', () => handleNumber('0'), 'number-button')}
+          {createButton('.', () => handleNumber('.'), 'number-button')}
+          {createButton('=', handleEqual, 'equal-button')}
+        </div>
       </div>
-    </div>
     </div>
   );
 }
