@@ -27,6 +27,13 @@ function TelaInicial() {
       rota: '/volumes',
       icone: '/volumes.png',  // Caminho atualizado
     },
+    {
+      id: 4,
+      nome: 'Calculadora Cientificas',
+      descricao: 'Converta diferentes unidades de volume',
+      rota: '/calculadora-cientifica',
+      icone: '/volumes.png',  // Caminho atualizado
+    }
   ];
 
   return (

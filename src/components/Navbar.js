@@ -37,6 +37,12 @@ function Navbar() {
               <span>Conversor de Volumes</span>
             </Link>
           </li>
+          <li className="nav-item">
+            <Link to="/calculadora-cientifica" className="nav-link">
+              <i data-feather="box" aria-hidden="true"></i>
+              <span>Calculadora cientifica</span>
+            </Link>
+          </li>
         </ul>
       </nav>
     </header>

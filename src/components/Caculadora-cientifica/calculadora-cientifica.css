@@ -1,0 +1,83 @@
+/* Estilo geral da página */
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background: #1e1e1e;  /* Fundo mais simples */
+    height: 100vh;
+}
+
+/* Container da calculadora */
+.calculator {
+    background-color: #333;  /* Cor de fundo mais simples */
+    border-radius: 8px;  /* Bordas mais sutis */
+    width: 320px;  /* Tamanho mais compacto */
+    height: 400px;  /* Ajustei a altura para ficar mais equilibrado */
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);  /* Definir 4 colunas */
+    grid-template-rows: repeat(5, 1fr);  /* Definir 5 linhas */
+    gap: 5px;  /* Espaçamento mais sutil entre os botões */
+}
+
+/* Display */
+.display {
+    background-color: #222;  /* Cor de fundo mais escura para o display */
+    color: #fff;
+    font-size: 2.5em;  /* Tamanho da fonte maior para maior legibilidade */
+    padding: 15px;
+    border-radius: 8px;
+    text-align: right;
+    grid-column: span 5;  /* Faz o display ocupar toda a largura */
+    height: 60px;  /* Altura do display */
+    overflow: hidden;
+}
+
+/* Botões */
+.button {
+    background-color: #444;  /* Cor de fundo simplificada */
+    color: #fff;
+    border: none;
+    font-size: 1.5em;  /* Tamanho da fonte ajustado para manter o minimalismo */
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.button:hover {
+    background-color: #555;  /* Cor ao passar o mouse mais discreta */
+}
+
+.button:active {
+    background-color: #666;  /* Cor ao clicar mais suave */
+}
+
+/* Botões especiais (como o igual) */
+.button.special {
+    background-color: #007BFF;
+}
+
+.button.special:hover {
+    background-color: #0056b3;
+}
+
+.button.special:active {
+    background-color: #004080;
+}
+
+/* Botões de operação */
+.button.operation {
+    background-color: #6c757d;
+}
+
+.button.operation:hover {
+    background-color: #5a6268;
+}
+
+.button.operation:active {
+    background-color: #4e555b;
+}
+

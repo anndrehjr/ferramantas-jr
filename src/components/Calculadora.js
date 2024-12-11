@@ -13,6 +13,7 @@ export default function Calculator() {
   const calculate = (a, b, op) => {
     a = parseFloat(a);
     b = parseFloat(b);
+    if (op === '÷' && b === 0) return 'Erro';
     switch (op) {
       case '+': return a + b;
       case '-': return a - b;
@@ -26,9 +27,13 @@ export default function Calculator() {
     if (newNumber) {
       setDisplay(num);
       setNewNumber(false);
-    } else {
+    } else if (!(num === '.' && display.includes('.')) && display.length < 14) {
       setDisplay(display === '0' ? num : display + num);
     }
+  };
+  
+  const truncateDisplay = (value) => {
+    return value.length > 14 ? value.slice(0, 14) : value;
   };
 
   const handleOperation = (op) => {
@@ -64,6 +69,11 @@ export default function Calculator() {
 
   const handleBackspace = () => {
     setDisplay(display.slice(0, -1) || '0');
+  };
+
+  const handlePercent = () => {
+    setDisplay(String(parseFloat(display) / 100));
+    setNewNumber(true);
   };
 
   const handleKeyDown = (event) => {
@@ -112,8 +122,6 @@ export default function Calculator() {
 
       {/* Calculator */}
       <div className="calculator">
-        {/* Title */}
-
         {/* Display */}
         <div className="calculator-display">
           {display}
@@ -123,7 +131,7 @@ export default function Calculator() {
         <div className="calculator-buttons">
           {createButton('C', handleClear, 'clear-button')}
           {createButton('⌫', handleBackspace, 'backspace-button')}
-          {createButton('%', () => handleOperation('%'), 'operator-button')}
+          {createButton('%', handlePercent, 'operator-button')}
           {createButton('÷', () => handleOperation('÷'), 'operator-button')}
 
           {createButton('7', () => handleNumber('7'), 'number-button')}
