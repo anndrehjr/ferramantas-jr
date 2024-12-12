@@ -45,3 +45,4 @@ Sugestões são sempre bem-vindas! 🌟
 
 ## 🎉 Vamos Calcular!
 Pronto para facilitar sua vida com nossas ferramentas? Let's go! 🚀
+https://ferramentas-jr.vercel.app
