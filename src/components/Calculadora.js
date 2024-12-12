@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
-import Footer from "./Footer.js";
+import Footer from "./Footer";
 import "../styles/Calculador.css";
 
 const Calculadora = () => {
@@ -9,7 +9,7 @@ const Calculadora = () => {
   // Handle button click
   const handleClick = (value) => {
     if (value === "C") {
-      setInput("");
+      setInput(""); // Clear the input
     } else if (value === "=") {
       try {
         setInput((prev) => {
@@ -82,7 +82,7 @@ const Calculadora = () => {
               {row.map((btn) => (
                 <button
                   key={btn}
-                  className="calculator-button"
+                  className={`calculator-button ${["/", "*", "-", "+", "="].includes(btn) ? "operation" : btn === "C" ? "special" : "number"}`}
                   onClick={() => handleClick(btn)}
                 >
                   {btn}
@@ -94,8 +94,6 @@ const Calculadora = () => {
       </div>
     </div>
   );
-  
 };
 
 export default Calculadora;
-

@@ -19,14 +19,14 @@ function TelaInicial() {
       nome: 'Conversor de Medidas',
       descricao: 'Converta diferentes unidades de medida',
       rota: '/medidas',
-      icone: '/medidas.png',
+      icone: '/navegacao.png',
     },
     {
       id: 3,
       nome: 'Conversor de Volumes',
       descricao: 'Converta diferentes unidades de volume',
       rota: '/volumes',
-      icone: '/volumes.png',
+      icone: '/volume.png',
     },
   ];
 

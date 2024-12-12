@@ -1,6 +1,7 @@
+/* Background e estrutura */
 body {
   font-family: Arial, sans-serif;
-  background-color: #f4f4f9;
+  background-color: #1e1e1e; /* Fundo escuro e moderno */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,62 +9,90 @@ body {
   margin: 0;
 }
 
+.calculator-container {
+  width: 100%;
+  max-width: 320px; /* Diminuir o tamanho da calculadora */
+  padding: 15px; /* Diminuir o padding */
+  background: #2c2c2c;
+  border-radius: 12px; /* Bordas mais suaves */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
 .calculator {
-  background: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 320px;
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Diminuir o gap entre os botões */
 }
 
+/* Tela da calculadora */
 .calculator-display {
-  background: #eaeaea;
-  padding: 15px;
-  border-radius: 5px;
+  background-color: #333;
+  padding: 15px; /* Reduzir padding */
+  border-radius: 10px;
+  color: white;
+  font-size: 1.8em; /* Reduzir o tamanho da fonte */
   text-align: right;
-  font-size: 1.5em;
   margin-bottom: 15px;
-  min-height: 50px;
-  color: #333;
 }
 
+/* Estilo dos botões */
 .calculator-buttons {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px; /* Diminuir o espaço entre as linhas de botões */
 }
 
 .calculator-row {
   display: flex;
-  gap: 10px;
+  gap: 8px; /* Diminuir o espaço entre os botões */
 }
 
+/* Botões */
 .calculator-button {
   flex: 1;
   background: #007bff;
   color: white;
   border: none;
-  padding: 15px;
-  border-radius: 5px;
-  font-size: 1em;
+  padding: 15px; /* Reduzir padding */
+  border-radius: 8px;
+  font-size: 1.3em; /* Reduzir o tamanho da fonte */
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 0.3s, transform 0.1s;
 }
 
 .calculator-button:hover {
   background: #0056b3;
+  transform: scale(1.05); /* Aumenta o botão levemente ao passar o mouse */
 }
 
 .calculator-button:active {
-  background: #003f7f;
+  background: #003f7f; /* Escurece quando pressionado */
+  transform: scale(0.95); /* Efeito de clique */
 }
 
-.calculator-button:nth-child(4n),
-.calculator-button:nth-last-child(-n+4) {
-  background: #28a745;
+/* Botões especiais em vermelho */
+.calculator-button.special {
+  background: #e74c3c;
 }
 
-.calculator-button:nth-child(4n):hover,
-.calculator-button:nth-last-child(-n+4):hover {
-  background: #1e7e34;
+.calculator-button.special:hover {
+  background: #c0392b;
+}
+
+/* Botões numéricos com cor diferenciada */
+.calculator-button.number {
+  background: #27ae60;
+}
+
+.calculator-button.number:hover {
+  background: #1e8449;
+}
+
+/* Botões de operação (+, -, *, /, =) com cor diferenciada */
+.calculator-button.operation {
+  background: #f39c12; /* Cor laranja para os botões de operação */
+}
+
+.calculator-button.operation:hover {
+  background: #e67e22;
 }
