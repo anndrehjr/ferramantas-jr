@@ -1,0 +1,32 @@
+.footer {
+    background-color: #f8f9fa;
+    padding: 20px 0;
+    text-align: center;
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+  }
+  
+  .footer-content {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .footer-content a {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .footer-content a:hover {
+    color: #007bff;
+  }
+  
+  .footer-text {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import Footer from './Footer';
 import '../styles/TelaInicial.css';
 
 function TelaInicial() {
@@ -11,29 +12,22 @@ function TelaInicial() {
       nome: 'Calculadora',
       descricao: 'Realize cálculos matemáticos',
       rota: '/calculadora',
-      icone: '/calculadora.png',  // Caminho atualizado
+      icone: '/calculadora.png',
     },
     {
       id: 2,
       nome: 'Conversor de Medidas',
       descricao: 'Converta diferentes unidades de medida',
       rota: '/medidas',
-      icone: '/medidas.png',  // Caminho atualizado
+      icone: '/medidas.png',
     },
     {
       id: 3,
       nome: 'Conversor de Volumes',
       descricao: 'Converta diferentes unidades de volume',
       rota: '/volumes',
-      icone: '/volumes.png',  // Caminho atualizado
+      icone: '/volumes.png',
     },
-    {
-      id: 4,
-      nome: 'Calculadora Cientificas',
-      descricao: 'Converta diferentes unidades de volume',
-      rota: '/calculadora-cientifica',
-      icone: '/volumes.png',  // Caminho atualizado
-    }
   ];
 
   return (
@@ -56,8 +50,10 @@ function TelaInicial() {
           </div>
         ))}
       </div>
+      <Footer />
     </div>
   );
 }
 
 export default TelaInicial;
+
