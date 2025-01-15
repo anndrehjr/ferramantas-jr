@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
-import Footer from "./Footer";
 import "../styles/Calculador.css";
+import * as math from 'mathjs';
 
 const Calculadora = () => {
   const [input, setInput] = useState("");
@@ -13,7 +13,7 @@ const Calculadora = () => {
     } else if (value === "=") {
       try {
         setInput((prev) => {
-          const result = eval(prev).toString(); // Use eval cautiously
+          const result = math.evaluate(prev).toString();
           return result.length > 12 ? result.slice(0, 12) : result;
         });
       } catch {
@@ -21,14 +21,8 @@ const Calculadora = () => {
       }
     } else if (["sin", "cos", "tan", "log"].includes(value)) {
       try {
-        const mathFunc = {
-          sin: Math.sin,
-          cos: Math.cos,
-          tan: Math.tan,
-          log: Math.log,
-        };
         setInput((prev) => {
-          const result = mathFunc[value](parseFloat(prev)).toString();
+          const result = math.evaluate(`${value}(${prev})`).toString();
           return result.length > 12 ? result.slice(0, 12) : result;
         });
       } catch {
@@ -45,7 +39,7 @@ const Calculadora = () => {
   // Handle keyboard input
   useEffect(() => {
     const handleKeyDown = (event) => {
-      const allowedKeys = /[0-9+\-*/.=]|Backspace|Enter/;
+      const allowedKeys = /[0-9+\-*/.=()]|Backspace|Enter/;
       if (allowedKeys.test(event.key)) {
         if (event.key === "Enter") {
           handleClick("=");
@@ -64,32 +58,35 @@ const Calculadora = () => {
   }, []);
 
   return (
-    <div className="calculator-container">
-      <div className="navbar">
-        <Navbar />
-      </div>
-      <div className="calculator">
-        <div className="calculator-display">{input || "0"}</div>
-        <div className="calculator-buttons">
-          {[
-            ["7", "8", "9", "/"],
-            ["4", "5", "6", "*"],
-            ["1", "2", "3", "-"],
-            ["C", "0", "=", "+"],
-            ["sin", "cos", "tan", "log"]
-          ].map((row, rowIndex) => (
-            <div key={rowIndex} className="calculator-row">
-              {row.map((btn) => (
-                <button
-                  key={btn}
-                  className={`calculator-button ${["/", "*", "-", "+", "="].includes(btn) ? "operation" : btn === "C" ? "special" : "number"}`}
-                  onClick={() => handleClick(btn)}
-                >
-                  {btn}
-                </button>
+    <div className="page-container">
+      <Navbar />
+      <div className="content-container">
+        <div className="calculator-container">
+          <div className="calculator">
+            <div className="calculator-display">{input || "0"}</div>
+            <div className="calculator-buttons">
+              {[
+                ["(", ")", "DEL", "C"],
+                ["7", "8", "9", "/"],
+                ["4", "5", "6", "*"],
+                ["1", "2", "3", "-"],
+                ["0", ".", "=", "+"],
+                ["sin", "cos", "tan", "log"]
+              ].map((row, rowIndex) => (
+                <div key={rowIndex} className="calculator-row">
+                  {row.map((btn) => (
+                    <button
+                      key={btn}
+                      className={`calculator-button ${["/", "*", "-", "+", "="].includes(btn) ? "operation" : ["C", "DEL", "(", ")"].includes(btn) ? "special" : ["sin", "cos", "tan", "log"].includes(btn) ? "function" : "number"}`}
+                      onClick={() => handleClick(btn)}
+                    >
+                      {btn}
+                    </button>
+                  ))}
+                </div>
               ))}
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </div>
@@ -97,3 +94,4 @@ const Calculadora = () => {
 };
 
 export default Calculadora;
+
